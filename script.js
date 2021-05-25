@@ -5,15 +5,27 @@ let ctx = canvas.getContext('2d');
 let letters = []
 let moves = 61;
 
-ctx.arc(100, 75, 50, 0, 2 * Math.PI);
-ctx.stroke();
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+    ctx.stroke();
+    requestAnimationFrame(animate);
+    for (var i = 0; i < letters.length; i++) {
+        let angle = map(i, 0, letters.length, 0, 2 * Math.PI);
+        ctx.fillText(letters[i], -65 * Math.cos(-angle) + 100, 65 * Math.sin(-angle) + 75);
+    }
+}
+
+
+
+function map(num, numMin, numMax, mapMin, mapMax) {
+    return mapMin + ((mapMax - mapMin) / (numMax - numMin)) * (num - numMin);
+}
 
 function annoyingNephew(letters, moves) {
     if (letters.length % 2) {
         throw Error("Number of letters must be even!")
-    }
-    if (moves > 0) {
-
     }
     let index = 0
     for (var i = 0; i < moves; i++) {
@@ -44,7 +56,10 @@ function annoyingNephew(letters, moves) {
 
 // Letter functions
 document.getElementById("addLetter").addEventListener("click", function() {
-    letters.push(document.getElementById('letter').value.toUpperCase());
+    let value = document.getElementById('letter').value.toUpperCase();
+    if (/[ABCDE]/g.test(value)) {
+        letters.push(value);
+    }
 });
 
 document.getElementById("letter").addEventListener("input", function() {
@@ -54,8 +69,18 @@ document.getElementById("letter").addEventListener("input", function() {
 });
 
 // Move functions
-document.getElementById("addMoves").addEventListener("click") function() {
-    
-}
+document.getElementById("movesCount").addEventListener("input", function(event) {
+    movesCount = parseInt(this.value);
+    document.getElementById("movesCount-text").textContent = "Moves: " + parseInt(this.value);
+});
 
-document.getElementById("moves-output").textContent = "The letter after " + moves + " moves is " + annoyingNephew(letters, moves);
+document.getElementById("start-program").addEventListener("click",function() {
+    document.getElementById("moves-output").textContent = "The letter after " + moves + " moves is " + annoyingNephew(letters, moves);
+})
+
+//error
+window.addEventListener("error", function() {
+    document.getElementById("moves-output").textContent = "Error, check the console!"
+});
+
+animate();

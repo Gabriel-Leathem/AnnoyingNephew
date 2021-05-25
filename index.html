@@ -6,15 +6,23 @@
 </head>
 <body>
   <canvas></canvas>
+  <div class="interact">
+  <div id="letterArea" >
 	<input type="text" id="letter" name="letter">
 	<button id="addLetter">Add Letter</button>
+    </div>
   <br>
   <br>
-  	<input type="text" id="moves" name="moves">
-	<button id="addMoves">How Many Moves</button>
-    <br>
-    <br>
-      <div id="moves-output">
-      </div>
+  <div id="movesArea">
+  <label for="movesCount" id="movesCount-text">Moves: 61</label>
+  <input type="range" name="movesCount" class="slider" id="movesCount" min="1" max="100" value="61">
+  <br>
+  <br>
+  <div>
+    <button id="start-program">Run</button>
+  </div>
+</div>
+</div>
+<p id="moves-output"></p>
 </body>
 </html>
