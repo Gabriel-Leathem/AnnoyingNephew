@@ -70,7 +70,7 @@ document.getElementById("letter").addEventListener("input", function() {
 
 // Move functions
 document.getElementById("movesCount").addEventListener("input", function(event) {
-    movesCount = parseInt(this.value);
+    moves = parseInt(this.value);
     document.getElementById("movesCount-text").textContent = "Moves: " + parseInt(this.value);
 });
 
